@@ -1,26 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Suspense } from 'react'
+import { Route, Routes } from 'react-router-dom'
+import { SignInPage } from './views/auth'
+import { ProductsPage } from './views/product'
+import { RequiredAuth } from './components/required-auth'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Routes>
+      <Route
+        path='/sign-in' element={<Suspense fallback={<>...loading</>}><SignInPage /></Suspense>}
+      />
+      <Route
+        path='/'
+        element={<Suspense fallback={<>...loading</>}><RequiredAuth><ProductsPage /></RequiredAuth></Suspense>}
+      />
+    </Routes>
+  )
 }
 
-export default App;
+export default App
